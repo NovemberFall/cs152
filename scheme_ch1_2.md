@@ -309,6 +309,36 @@ y
 
 ;Other conversion procedures in the same vein are list‑>string, vector‑>list, and list‑>vector.
 
+
+
+
+
+;Numbers can be converted to strings:
+(number->string 16) =>  "16"
+
+
+
+
+;Strings can be converted to numbers. If the string corresponds to no number, #f is returned.
+(string->number "16")
+=>  16
+
+(string->number "Am I a hot number?")
+=>  #f
+
+
+
+;string‑>number takes an optional second argument, the radix.
+(string->number "16" 8) =>  14 ;because 16 in base 8 is the number fourteen.
+
+
+
+;Symbols can be converted to strings, and vice versa:
+(symbol->string 'symbol)
+=>  "symbol"
+
+(string->symbol "string")
+=>  string
 ```
 
 
