@@ -6,6 +6,42 @@
 ```
 ![](img/2020-02-01-14-45-03.png)
 -
+- Local variables can be introduced without explicitly creating a procedure. The special form `let` introduces a list of local variables for use within its body:
+```scheme
+(let ((x 1)
+      (y 2)
+      (z 3))
+  (list x y z))
+=>  (1 2 3)
+
+
+
+;As with lambda, within the let-body, the local x (bound to 1) shadows the global x (which is bound to 20).
+
+;The local variable initializations — x to 1; y to 2; z to 3 — are not considered part of the let body. Therefore, a reference to x in the initialization will refer to the global, not the local x:
+(let ((x 1)
+      (y x))
+  (+ x y))
+=>  21
+;This is because x is bound to 1, and y is bound to the global x, which is 20.
+
+
+;Sometimes, it is convenient to have let’s list of lexical variables be introduced in sequence, so that the initialization of a later variable occurs in the lexical scope of earlier variables. The form let* does this:
+(let* ((x 1)
+       (y x))
+  (+ x y))
+=>  2
+
+;The x in y’s initialization refers to the x just above. The example is entirely equivalent to — and is in fact intended to be a convenient abbreviation for — the following program with nested lets:
+(let ((x 1))
+  (let ((y x))
+    (+ x y)))
+=>  2
+
+
+```
+
+
 - use let*
 ```scheme
 (let* ([x 3]                                                                               
@@ -157,15 +193,19 @@ All the data types discussed here can be lumped together into a single all-encom
  (is-odd? 45)
 => #t
 ```
-
-
-
-
-
-
+---
+- letrec
 ```scheme
-```
+(letrec ((local-even? (lambda (n)
+                        (if (= n 0) #t
+                            (local-odd? (- n 1)))))
+         (local-odd? (lambda (n)
+                       (if (= n 0) #f
+                           (local-even? (- n 1))))))
+  (list (local-even? 23) (local-odd? 23)))
 
+```
+- The lexical variables introduced by a `letrec` are visible not only in the `letrec-body` but also within all the initializations. `letrec` is thus tailor-made for defining recursive and mutually recursive local procedures.
 
 
 
