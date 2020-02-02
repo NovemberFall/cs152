@@ -7,5 +7,22 @@
 
 
 
+;Lambdas λ
+((λ
+   (x)
+   (* x x) )
+   3)
+
+
+
+
+;
+(define square
+    (λ 
+    (x) 
+    (* x x))
+    )
+(square 4)    
+
 
 

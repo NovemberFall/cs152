@@ -340,18 +340,5 @@ y
 (string->symbol "string")
 =>  string
 ```
-
-
-
-
-
-```scheme
-```
-
-
-
-
-
-
-
+---
 
