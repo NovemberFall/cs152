@@ -2,7 +2,7 @@
 
 (define (reverse lst)
     (if (null? lst)
-        '()
+        '()     ;if list is empty, the revers list is still empty
         (append (reverse (cdr lst))
                 (list (car lst))
         )
