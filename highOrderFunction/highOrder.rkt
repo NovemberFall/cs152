@@ -33,3 +33,21 @@
 (define (subtract-two-from-each-elem lst)
     (map (λ (x) (- x 2)) lst)
 )
+
+
+(define (pos-nums-only lst)
+    (cond [(empty? lst) list]
+
+    )
+)
+
+;change extract-elems to filter
+(define (filter pred lst)
+    (cond [(empty? lst) lst]
+        [(pred (car lst))
+            (cons (car lst)
+                    (filter pred (cdr lst))
+        )]
+        [(filter pred (cdr lst))]
+    )
+)
