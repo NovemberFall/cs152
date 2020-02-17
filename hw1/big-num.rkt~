@@ -3,12 +3,10 @@
 ;; The big-num data structure is essentially a list of 3 digit numbers.
 
 ;; Exporting methods
+(provide big-add big-subtract big-multiply big-power-of pretty-print
+         number->bignum string->bignum bignum? zero-or-one? one-block?)
 
 (define MAX_BLOCK 1000)
-;; Exporting methods
-(provide big-add  
-         bignum? zero-or-one? one-block?)
-
 
 ;; Contract verifying the datatype of a bignum
 (define (bignum? n)
@@ -53,14 +51,10 @@
     [(= 0 (length x))  (big-add1 (list co) y 0)]
     [(= 0 (length y))  (big-add1 x (list co) 0)]
     [else
-       (if (>= 999 (+ (car x) (car y) co))
-           (append (list (+ (car x) (car y) co))
-                 (big-add1 (cdr x) (cdr y) 0)
-           )
-           (append (list (- (+ (car x) (car y) co) 1000))
-                 (big-add1 (cdr x) (cdr y) 1)
-           )
-       )
+       ;;
+       ;; --- YOUR CODE HERE ---
+       ;;
+     (error "Not implemented")
      ]
     ))
 
