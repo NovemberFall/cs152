@@ -3,6 +3,8 @@
 ;; The big-num data structure is essentially a list of 3 digit numbers.
 
 ;; Exporting methods
+(provide big-add big-subtract big-multiply big-power-of pretty-print
+         number->bignum string->bignum bignum? zero-or-one? one-block?)
 
 (define MAX_BLOCK 1000)
 ;; Exporting methods
@@ -63,5 +65,164 @@
        )
      ]
     ))
+
+
+
+;; Subtraction of two big-nums
+(define/contract (big-subtract x y)
+  (-> bignum? bignum? bignum?)
+  (let ([lst (big-subtract1 x y 0)])
+    (reverse (strip-leading-zeroes (reverse lst)))
+  ))
+
+(define/contract (strip-leading-zeroes x)
+  (-> bignum? bignum?)
+  (cond
+    [(= 0 (length x)) '(0)]
+    [(= 0 (car x)) (strip-leading-zeroes (cdr x))]
+    [else x]
+    ))
+
+;; NOTE: there are no negative numbers with this implementation,
+;; so 3 - 4 should throw an error.
+(define/contract (big-subtract1 x y borrow)
+  (-> bignum? bignum? zero-or-one? bignum?)
+   (cond [(and (= 0 (length x)) (= 0 (length y))) '()]
+         [(= 0 (length y)) (list (- (car x) borrow))]
+         [else (if (< (car x) (car y))
+                   (append (list (- (+ 1000 (car x)) (car y) borrow))
+                           (big-subtract1 (cdr x) (cdr y) 1)
+                   )
+                   (append (list (- (car x) (car y) borrow))
+                           (big-subtract1 (cdr x) (cdr y) 0)
+                   )
+               )
+         ]
+    )
+  )
+
+
+
+
+;; Returns true if two big-nums are equal
+(define/contract (big-eq x y)
+  (-> bignum? bignum? boolean?)
+  (cond [(and (= 0 (length x)) (= 0 (length y))) #t]
+        ;compare
+        [(= (length x) (length y))
+         (if (= (car x) (car y))
+              (big-eq (cdr x) (cdr y))
+             #f)
+        ]
+        ; Different lengths
+        [else #f]
+  )
+)
+
+
+
+
+
+
+
+
+;; Decrements a bignum
+(define/contract (big-dec x)
+  (-> bignum? bignum?)
+  (big-subtract x '(1))
+  )
+
+;; Multiplies two big-nums
+(define/contract (big-multiply x y)
+  (-> bignum? bignum? bignum?)
+   (if (= 1 (car y))
+       x
+       (big-add x (big-multiply x (big-dec y)))
+   )
+)
+
+
+
+
+
+
+
+
+
+
+
+;; Raise x to the power of y
+(define/contract (big-power-of x y)
+  (-> bignum? bignum? bignum?)
+  (if (= 1 (car y))
+      x
+      (big-multiply x (big-power-of x (big-dec y)))
+  )
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+;; Dispaly a big-num in an easy to read format
+(define (pretty-print x)
+  (let ([lst (reverse x)])
+    (string-append
+     (number->string (car lst))
+     (pretty-print1 (cdr lst))
+     )))
+
+(define (pretty-print1 x)
+  (cond
+    [(= 0 (length x))  ""]
+    [else
+     (string-append (pretty-print-block (car x)) (pretty-print1 (cdr x)))]
+    ))
+
+(define (pretty-print-block x)
+  (string-append
+   ","
+   (cond
+     [(< x 10) "00"]
+     [(< x 100) "0"]
+     [else ""])
+   (number->string x)))
+
+;; Convert a number to a bignum
+(define/contract (number->bignum n)
+  (-> number? bignum?)
+  (cond
+    [(< n MAX_BLOCK) (list n)]
+    [else
+     (let ([block (modulo n MAX_BLOCK)]
+           [rest (floor (/ n MAX_BLOCK))])
+       (cons block (number->bignum rest)))]))
+
+;; Convert a string to a bignum
+(define/contract (string->bignum s)
+  (-> string? bignum?)
+  (let ([n (string->number s)])
+    (number->bignum n)))
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
