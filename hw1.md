@@ -22,3 +22,22 @@
     ))
 ```
 
+```scheme
+;; NOTE: there are no negative numbers with this implementation,
+;; so 3 - 4 should throw an error.
+(define/contract (big-subtract1 x y borrow)
+  (-> bignum? bignum? zero-or-one? bignum?)
+   (cond [(and (= 0 (length x)) (= 0 (length y))) '()]
+         [(= 0 (length y)) (list (- (car x) borrow))]
+         [else (if (< (car x) (car y))
+                   (append (list (- (+ 1000 (car x)) (car y) borrow))
+                           (big-subtract1 (cdr x) (cdr y) 1)
+                   )
+                   (append (list (- (car x) (car y) borrow))
+                           (big-subtract1 (cdr x) (cdr y) 0)
+                   )
+               )
+         ]
+    )
+  )
+```

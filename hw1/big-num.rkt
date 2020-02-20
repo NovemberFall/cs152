@@ -55,11 +55,11 @@
     [(= 0 (length x))  (big-add1 (list co) y 0)]
     [(= 0 (length y))  (big-add1 x (list co) 0)]
     [else
-       (if (>= 999 (+ (car x) (car y) co))
+       (if (>= (- MAX_BLOCK 1) (+ (car x) (car y) co))
            (append (list (+ (car x) (car y) co))
                  (big-add1 (cdr x) (cdr y) 0)
            )
-           (append (list (- (+ (car x) (car y) co) 1000))
+           (append (list (- (+ (car x) (car y) co) MAX_BLOCK))
                  (big-add1 (cdr x) (cdr y) 1)
            )
        )
@@ -87,10 +87,13 @@
 ;; so 3 - 4 should throw an error.
 (define/contract (big-subtract1 x y borrow)
   (-> bignum? bignum? zero-or-one? bignum?)
-   (cond [(and (= 0 (length x)) (= 0 (length y))) '()]
-         [(= 0 (length y)) (list (- (car x) borrow))]
+   (cond [(and (= 0 (length x)) (= 0 (length y)))
+          '()
+         ]
+         [(= 0 (length x)) (big-subtract1 (list borrow) y 0)]
+         [(= 0 (length y)) (big-subtract1 x (list borrow) 0)]
          [else (if (< (car x) (car y))
-                   (append (list (- (+ 1000 (car x)) (car y) borrow))
+                   (append (list (- (+ MAX_BLOCK (car x)) (car y) borrow))
                            (big-subtract1 (cdr x) (cdr y) 1)
                    )
                    (append (list (- (car x) (car y) borrow))
@@ -108,13 +111,11 @@
 (define/contract (big-eq x y)
   (-> bignum? bignum? boolean?)
   (cond [(and (= 0 (length x)) (= 0 (length y))) #t]
-        ;compare
         [(= (length x) (length y))
          (if (= (car x) (car y))
               (big-eq (cdr x) (cdr y))
              #f)
         ]
-        ; Different lengths
         [else #f]
   )
 )
@@ -146,11 +147,6 @@
 
 
 
-
-
-
-
-
 ;; Raise x to the power of y
 (define/contract (big-power-of x y)
   (-> bignum? bignum? bignum?)
@@ -159,12 +155,6 @@
       (big-multiply x (big-power-of x (big-dec y)))
   )
 )
-
-
-
-
-
-
 
 
 
