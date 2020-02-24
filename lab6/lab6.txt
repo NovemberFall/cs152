@@ -1,0 +1,25 @@
+Part 1:
+
+It should be : 666
+
+After I run test.bash on mac terminal, run "source test.bash"
+
+it output: 666
+
+So my guess is correct. 
+
+The issue is Bash uses Dynamic scoping, so for $x output: 666
+
+I write a .c program to run this, it output: 42
+
+---
+Thus, the Bash use dynamic scoping, but most language uses static scoping, for example java, c, c++.
+
+
+
+
+
+---
+
+Part 2:
+
