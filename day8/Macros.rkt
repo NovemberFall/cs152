@@ -13,6 +13,10 @@
     (displayln b)
 )
 
+
+;
+;
+; set! example:
 (displayln "")
 (displayln "another example:")
 
