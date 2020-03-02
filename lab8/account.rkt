@@ -11,6 +11,7 @@
 
 ;; Get the current balance
 (define (balance acc)
+    (account? . -> . boolean?)
   (account-balance acc))
 
 ;; Withdraw funds from an account

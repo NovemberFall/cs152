@@ -1,5 +1,10 @@
 # cs152
 
+## video
+http://www.eng.utah.edu/~cs5510/f16/htdp-videos.html
+
+
+
 ## https://racket-lang.org/
 - Download
 - https://download.racket-lang.org/
