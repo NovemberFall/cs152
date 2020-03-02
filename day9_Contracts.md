@@ -37,6 +37,8 @@ we can ensure that the value is both a number and is positive, combining the two
   The forms after `a ->` specify contracts for the domains and finally a contract for the range.
 
 ```scheme
+#lang racket
+ 
 (provide (contract-out
           [deposit (-> number? any)]
           [balance (-> number?)]))
@@ -44,6 +46,9 @@ we can ensure that the value is both a number and is positive, combining the two
 (define amount 0)
 (define (deposit a) (set! amount (+ amount a)))
 (define (balance) amount)
+
+(deposit 5)
+(displayln amount)
 ```
 - The module exports two functions:
   1. `deposit`, which accepts a number and returns some value that is not specified in the contract, and
@@ -63,6 +68,39 @@ we can ensure that the value is both a number and is positive, combining the two
 (provide (contract-out
           [deposit (number? . -> . any)]))
 ```
+- Thus,
+`(number? . -> . any)`
+is just another way of writing
+`(-> number? any)`
+---
+
+
+## `Using define/contract and ->`
+- The `define/contract` form introduced in Experimenting with Nested Contract Boundaries 
+  can also be used to define functions that come with a contract. For example,
+```scheme
+(define/contract (deposit amount)
+  (-> number? any)
+  ; implementation goes here
+  ....)
+```
+- which defines the deposit function with the contract from earlier. 
+  Note that this has two potentially important impacts on the use of deposit:
+1. The contract will be checked on any call to deposit that is outside of the definition of deposit – even those inside the 
+   module in which it is defined. 
+   Because there may be many calls inside the module, this checking may cause the contract to be checked too often, 
+   which could lead to a performance degradation. This is especially true if the function is called repeatedly from a loop.
+
+2. In some situations, a function may be written to accept a more lax set of inputs when 
+   called by other code in the same module. 
+   For such use cases, the contract boundary established by define/contract is too strict.
+```scheme
+```
+
+
+
+```scheme
+```
 
 
 
@@ -70,7 +108,15 @@ we can ensure that the value is both a number and is positive, combining the two
 
 ```scheme
 ```
+
+
 ```scheme
 ```
+
+
+
 ```scheme
 ```
+
+
+

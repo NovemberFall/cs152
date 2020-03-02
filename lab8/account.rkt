@@ -10,9 +10,9 @@
 (define new-account (account 0))
 
 ;; Get the current balance
-(define (balance acc)
-    (account? . -> . boolean?)
-  (account-balance acc))
+(define/contract (balance acc)
+    (-> account? number?)
+    (account-balance acc))
 
 ;; Withdraw funds from an account
 (define (withdraw acc amt)
