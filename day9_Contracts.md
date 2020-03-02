@@ -94,29 +94,7 @@ is just another way of writing
 2. In some situations, a function may be written to accept a more lax set of inputs when 
    called by other code in the same module. 
    For such use cases, the contract boundary established by define/contract is too strict.
-```scheme
-```
 
-
-
-```scheme
-```
-
-
-
-
-
-```scheme
-```
-
-
-```scheme
-```
-
-
-
-```scheme
-```
 
 
 
