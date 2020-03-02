@@ -1,6 +1,12 @@
-#lang racket
+#| #lang racket
 
-(provide (contract-out  [amount positive?])
+(provide (contract-out  [amount (and/c number? positive?)])
 )
 
-(define amount 0)
+(define amount 2)
+ |#
+
+
+
+ 
+
