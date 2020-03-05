@@ -14,9 +14,7 @@ public class FileLoader {
     public static void listSubdirectoriesLambda(String dirName) {
         out.println("List subdirectories, using a lambda (instead of FileFilter");
         File myDir = new File(dirName);
-        //
-        // YOUR CODE HERE
-        //
+        
         File[] subDirs = myDir.listFiles((file) -> {return file.isDirectory();});
         System.out.println(subDirs);
     }
@@ -46,7 +44,7 @@ public class FileLoader {
     }
 
     public static void main(String[] args) {
-        listSubdirectoriesLambda(".");
+        listSubdirectoriesLambda("C:/Program Files/Java/jdk1.8.0_71");
         // listSubdirectoriesMethodRef(".");
         // listFiles("src", "java");
     }
