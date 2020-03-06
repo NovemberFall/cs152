@@ -16,7 +16,9 @@ public class FileLoader {
         File myDir = new File(dirName);
         
         File[] subDirs = myDir.listFiles((file) -> {return file.isDirectory();});
-        System.out.println(subDirs);
+        for(File file : subDirs) {
+            out.println(file.getName());
+        }
     }
 
     /**
@@ -44,7 +46,7 @@ public class FileLoader {
     }
 
     public static void main(String[] args) {
-        listSubdirectoriesLambda("C:/Program Files/Java/jdk1.8.0_71");
+        listSubdirectoriesLambda(".");
         // listSubdirectoriesMethodRef(".");
         // listFiles("src", "java");
     }
