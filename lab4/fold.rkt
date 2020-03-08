@@ -1,11 +1,18 @@
 #lang racket
+
+;	'(1 2 3)
+; '(9 -6 4)
+; '()
 (define (sumofsquares1 lst)
   (foldr
     (λ (elem accumulator) (+ (* elem elem) accumulator))
     0
    lst)
 )
-
+; 0 => accumulator
+; lst => elem
+;If foldl is called with n lists, then proc must take n+1 arguments. 
+;The extra argument is the combined return values so far.
 
 
 ;; Repeat with foldl

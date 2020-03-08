@@ -63,18 +63,49 @@
 
 ;; Evaluates a conditional expression
 (define (eval-if c thn els env)
-  (error "Your code here"))
+  (let* ([r1 (evaluate c env)]
+         [v1 (car r1)][env1 (cdr r1)]
+         
+         [r2 (evaluate thn env1)]
+         [v2 (car r2)][env2 (cdr r2)]
+         
+         [r3 (evaluate els env2)]
+         [v3 (car r3)][env3 (cdr r3)]
+        )
+    (if (eqv? #t v1) 
+        (cons v2 env2) 
+        (cons v3 env3))
+    )
+)
 
 ;; Evaluates a loop.
 ;; When the condition is false, return 0.
 ;; There is nothing special about zero -- we just need to return something.
 (define (eval-while c body env)
-  (error "Your code here"))
+  (let* ([r1(evaluate c env)]
+         [v1 (car r1)][env1 (cdr r1)]
+         
+         [bodyOne (evaluate body env)][env2 (cdr bodyOne)])
+    (if v1
+        (eval-while c body env2)
+        (cons 0 env1))
+    )
+)
 
 ;; Handles imperative updates.
 (define (eval-assign var exp env)
-  (error "Your code here"))
+  (let* ((val (evaluate exp env)))
+            (cons (car val) (hash-set env var (car val))
+        )
+  )
+)
 
 ;; Handles sequences of statements
 (define (eval-seq e1 e2 env)
-  (error "Your code here"))
+  (let* ([r1(evaluate e1 env)]
+        [v1(car r1)][env1(cdr r1)][r2(evaluate e2 env1)]
+        [v2(car r2)][env2(cdr r2)]
+        )
+        (cons v1 env2)
+  )
+)
