@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Created-By: 1.8.0_232 (Private Build)
+
+Name: codecheck.log
+SHA-256-Digest: DvPjenHZSDAEfEA0GsHv13nP1XnMHPnzrtj4JnBeQRI=
+
+Name: report.html
+SHA-256-Digest: DO+2sLOnz10S/MnfsoxMMpdRdvOzSZGmD/rpWz6toT4=
+
+Name: shapes.rkt
+SHA-256-Digest: GcNqsbAvK60LSxLFlzr3zvvc4Tedg63NQIO6vBzmSrI=
+
+Name: codecheck.out
+SHA-256-Digest: 47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
+
