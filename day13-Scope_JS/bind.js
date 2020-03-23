@@ -26,7 +26,8 @@ var emily = {
 
 
 /*   bind method
-It is very similar to the call method as well, so it also allows us to set the this variable explicitly.
+It is very similar to the call method as well, 
+so it also allows us to set the this variable explicitly.
 However, the difference here is that bind doesn't immediately call the function,
 but instead it generates a copy of the function so that we can store it somewwhere
 */
