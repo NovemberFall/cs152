@@ -10,20 +10,20 @@ Sample usage is shown below:
 function makeDebugWrapperApply(f, thisObj) {
     return function () {
         // YOUR CODE HERE
-        console.log("Passing " + this.x + this.y);
+        console.log("Passing " + x + y);
     }
 }
 
 function add(x, y) {
-    console.log("Passing " + x + " " + y);
+    // console.log("Passing " + x + " " + y);
     return x + y;
 }
 // Prints 7
 console.log(add(3, 4));
 
-add.bind(null, [8, 14]);
-var addWrapped = makeDebugWrapperApply(add);
-
+add.apply(null, [8, 14]);
+var addWrapped = makeDebugWrapperApply(add).apply(null, [8, 14]);
+addWrapped.apply(null, [8, 14]);
 // First prints "Passing 8 14", 
 // then prints "Returning 22", 
 // and then prints 22. 
