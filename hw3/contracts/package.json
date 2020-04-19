@@ -1,0 +1,14 @@
+{
+  "name": "contracts",
+  "version": "1.0.0",
+  "main": "contracts.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Yuxiao Zheng",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mocha": "^7.1.1"
+  }
+}

@@ -1,18 +1,21 @@
-function Employee(name, salary) {
-    this.name = name;
-    this.salary = salary;
-}
+var Employee = (function () {
+    function Employee(name, salary) {
+        this.name = name;
+        this.salary = salary;
+    }
 
-Employee.prototype.displayWages = function (bonus = 0) {
-    console.log(`Annual wages for ${this.name}: ${this.salary + bonus}`);
-}
+    Employee.prototype.displayWages = function (bonus = 0) {
+        console.log(`Annual wages for ${this.name}: ${this.salary + bonus}`);
+    }
+    return Employee;
+})();
 
 var emp1 = new Employee("Nellanus Glacanus", 100000);
 var emp2 = new Employee("Joe Bob Briggs", "$20 and half a case of Budweiser ");
 
 
-wages1 = makeDebugWrapperApply(emp1.displayWages, emp1);
-wages2 = makeDebugWrapperApply(emp2.displayWages, emp2);
+var wages1 = makeDebugWrapperApply(emp1.displayWages, emp1);
+var wages2 = makeDebugWrapperApply(emp2.displayWages, emp2);
 
 
 //First prints "Passing 5000",

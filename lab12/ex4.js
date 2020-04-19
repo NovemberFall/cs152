@@ -7,7 +7,7 @@ Sample usage is shown below:
 */
 
 
-function makeDebugWrapperApply(f, thisObj) {
+function makeDebugWrapperApply(f) {
     return function () {
         // YOUR CODE HERE
         console.log("Passing " + x + y);
