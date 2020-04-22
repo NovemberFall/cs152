@@ -4,6 +4,7 @@ import java.util.Map;
 public class EvalVisitor extends ExprBaseVisitor<Integer> {
 
     Map<String, Integer> env = new HashMap<String, Integer>();
+    //    Map<String, Integer> memory = new HashMap<String, Integer>();
 
     @Override
     public Integer visitPrintExpr(ExprParser.PrintExprContext ctx) {
@@ -42,6 +43,7 @@ public class EvalVisitor extends ExprBaseVisitor<Integer> {
         return visit(ctx.expr());
     }
 
+    //ID '=' expr NEWLINE       # assign
     @Override
     public Integer visitAssign(ExprParser.AssignContext ctx) {
 

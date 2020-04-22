@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<Skein rootNode="node-1696">
+    <generator>Inform Mac Client (Inform version )</generator>
+    <item nodeId="node-1696">
+        <command xml:space="preserve">adventure</command>
+        <result xml:space="preserve">
+
+
+Hello Inform7. I begin a adventure game by using inform7. During coronavirus, playing a game is a good choice.
+
+adventure
+An Interactive Fiction by Yuxiao Zheng
+Release 1 / Serial number 200421 / Inform 7 build 6M62 (I6/v6.34 lib 6/12N) SD
+
+Home
+It's gray and dull in here. Bright sunlight pours in through the window.
+
+You can see a watch, a laptop and a charger here.
+
+&gt;</result>
+        <commentary xml:space="preserve"></commentary>
+    </item>
+</Skein>
