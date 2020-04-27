@@ -1,6 +1,5 @@
 grammar FeatherweightJavaScript;
 
- 
 @header { package edu.sjsu.fwjs.parser; }
 
 // Reserved words
@@ -24,15 +23,15 @@ SUB       : '-' ;
 MOD       : '%' ;
 
 // Comparison
-GT        : '>' ;
-LT        : '<' ;
-GTE       : '>=';
-LTE       : '<=';
-EQ        : '==';
+GREATER_THAN : '>' ;
+LESS_THAN : '<' ;
+GREATER_THAN_EQUAL_TO : '>=' ;
+LESS_THAN_EQUAL_TO : '<=' ;
+EQUAL_TO : '==';
 
 SEPARATOR : ';' ;
 
-// Variable stuff
+//Identifiers
 IDENTIFIER : ([a-zA-Z] | '_') ([a-zA-Z0-9] | '_')* ;
 
 // Whitespace and comments
@@ -40,7 +39,6 @@ NEWLINE       : '\r'? '\n' -> skip ;
 WS            : [ \t]+ -> skip ; // ignore whitespace
 LINE_COMMENT  : '//' ~[\n\r]* -> skip ;
 BLOCK_COMMENT : '/*' .*? '*/' -> skip ;
-
 
 // ***Parsing rules ***
 
@@ -71,4 +69,5 @@ expr: expr op=( '*' | '/' | '%' ) expr                  # MulDivMod
 block: '{' stat* '}'                                    # fullBlock
     | stat                                              # simpBlock
     ;
+
 
