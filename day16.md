@@ -132,7 +132,67 @@ enemy(jamie, X) :- enemy(cersei,X),
 
 queen(X) :- wife(X,Y), king(Y).
 ```
+
+
+![](img/2020-05-14-11-26-35.png)
+
+
+- who is queen?
+- we can use first letter is capital method does this. I am looking to get an ans for this.
+
+![](img/2020-05-14-11-31-42.png)
+- remember, if hit q, it doen't work.
+
+![](img/2020-05-14-11-34-01.png)
+- agian, 第一个字母大写代表，变量
 ---
 
+```ruby
+
+villain(joker).
+villain(penguin).
+villain(catwoman).
+villain(scarecrow).
+villain(bane).
+
+kills_people(joker).
+kills_people(penguin).
+kills_people(bane).
+
+power(scarecrow, fear).
+power(bane,venom).
+
+% Rules
+scary(V) :- villain(V), kills_people(V).
+scary(V) :- villain(V), power(V,_).
+
+% ?- findall(V, scary(V), R).
+% R = [joker, penguin, bane, scarecrow, bane].
+% 
+% ?- setof(V, scary(V), R).  
+% R = [bane, joker, penguin, scarecrow].
+
+% What if we did not have setof?
+find_scary(ScarySet) :-
+  findall(V, scary(V), ListOfScaries),
+  get_unique(ListOfScaries,ScarySet),
+  !. % Green cut
+
+get_unique([],[]).
+get_unique([H|Tail], Set) :-
+  get_unique(Tail, TailSet),
+  \+ member(H, TailSet),
+  Set = [H|TailSet].
+get_unique([H|Tail], Set) :-
+  get_unique(Tail, TailSet),
+  member(H, TailSet),
+  Set = TailSet.
+```
+
+
+
 ![](img/2020-04-19-01-27-11.png)
+
+
+
 

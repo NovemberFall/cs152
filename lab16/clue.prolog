@@ -1,9 +1,9 @@
-victim(mr_boddy).
-victim(cook).
-victim(motorist).
-victim(police_officer).
-victim(yvette).
-victim(singing_telegram).
+victim(mr_boddy).          % candlestick(烛台)  hall
+victim(cook).              % knife        kitchen
+victim(motorist).          % wrench(🔧)       lounge
+victim(police_officer).    % lead_pipe(铅管)   library
+victim(yvette).            % rope         billiard_room
+victim(singing_telegram).  % revolver（左轮手枪）    hall
 
 suspect(professor_plum).
 suspect(mrs_peacock).
@@ -33,33 +33,86 @@ murder(police_officer,lead_pipe,library).
 murder(singing_telegram,revolver,hall).
 murder(yvette,rope,billiard_room).
 
-% List of Motives
-motive(Everyone, mr_boddy) :- Everyone \= wadsworth.
-motive(mrs_peacock, cook).
-motive(colonel_mustard, motorist).
-motive(miss_scarlet, yvette).
-motive(colonel_mustard, yvette).
-motive(mrs_white, yvette).
-motive(miss_scarlet, police_officer).
-motive(professor_plum, singing_telegram).
-motive(wadsworth, singing_telegram).
+% Clues
 
-% Weapons that suspects cant use
-cant_use(colonel_mustard, rope).
-cant_use(professor_plum, revolver).
-cant_use(mrs_peacock, candlestick).
+% Set 1
 
-% Rooms not visited
-not_visited(miss_scarlet, billiard_room).
-not_visited(professor_plum, kitchen).
-not_visited(colonel_mustard, R) :- murder(mr_boddy, _, R).
+% X suspected perpetrator(犯罪者) in killing Y
+% Everyone wanted to kill mr_boddy
+susp_perp(mrs_peacock, cook).
+susp_perp(colonel_mustard, motorist).
+susp_perp(miss_scarlet, yvette).
+susp_perp(colonel_mustard, yvette).
+susp_perp(miss_scarlet, police_officer).
+susp_perp(professor_plum, singing_telegram).
+susp_perp(wadsworth, singing_telegram).
 
-% Alibi
-alibi(mrs_white, mr_boddy).
-alibi(mr_green, _).
-alibi(miss_scarlet, V) :- murder(V, _, R), murder(_, revolver, R).
+susp_notkill(mrs_white, mr_boddy).
+% mr_green has alibi
+susp_notkill(mr_green, mr_boddy).
+susp_notkill(mr_green, cook).
+susp_notkill(mr_green, motorist).
+susp_notkill(mr_green, police_officer).
+susp_notkill(mr_green, yvette).
+susp_notkill(mr_green, singing_telegram).
+
+% Set 2
+
+% X didn't use Y
+susp_notuse(colonel_mustard, rope).
+susp_notuse(professor_plum, revolver).
+susp_notuse(mrs_peacock, candlestick).
+
+% X wasn't at Y
+susp_notat(miss_scarlet, billiard_room).
+susp_notat(professor_plum, kitchen).
+susp_notat(colonel_mustard, hall).
+susp_notat(miss_scarlet, hall). % not in room with revolver
+
 
 % Update accuse to solve the murders.
 % Add more facts and rules as needed.
-accuse(V,S) :- murder(V,W,R), suspect(S), motive(S,V), not(cant_use(S,W)), not(not_visited(S,R)), not(alibi(S,V)).
+accuse(S,V)     :- murder(V,W,R),
+                   victim(V),
+                   weapon(W),
+                   room(R),
+                   suspect(S),
+                   might_at(S,R),
+                   might_use(S,W),
+                   might_kill(S,V)
+                   .
+
+definitely_killed(S,V) :- accuse(S,V), susp_perp(S,V).
+
+might_at(S,R)   :- \+ susp_notat(S, R).
+might_use(S,W)  :- \+ susp_notuse(S, W).
+might_kill(S,V) :- \+ susp_notkill(S, V).
+
+killed_everyone(S) :- accuse(S, mr_boddy),
+                      accuse(S, cook),
+                      accuse(S, motorist),
+                      accuse(S, police_officer),
+                      accuse(S, yvette),
+                      accuse(S, singing_telegram).
+
+% Missed these stuff
+
+alibi(mr_green, _).
+alibi(mrs_white, mr_boddy).
+alibi(miss_scarlet, V) :- murder(V, _, R),
+                          murder(_, revolver, R).
+motive(S, mr_boddy) :- suspect(S),
+                       S \= wadsworth.
+
+
+
+%% Run Output %%
+
+% $ prolog -q clue.prolog 
+% ?- killed_everyone(X).
+% X = wadsworth.
+
+% ?- 
+
+% Wadsworth killed everyone!
 
