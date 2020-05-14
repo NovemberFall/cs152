@@ -8,14 +8,49 @@
   lowercase letter, it's not variable
 
 - comma, is `and`
+-  `.` here, it's equivalent to a semicolon in Java
+
+- 主要在terminal,  ?- [文件名].   //=> return 文件里的内容
 ---
 
 
 ### Using not
 ![](img/2020-04-18-03-40-47.png)
 ![](img/2020-04-18-03-41-24.png)
+- `\+immortal(X).`
+- here is another syntax for not
+- exactly same with `not`
+
+---
+
+### loading Proglo file
+![](img/2020-05-13-23-28-35.png)
+
+```ruby
+%facts
+man(socrates). 
+man(zeus). 
+woman(helen).
+
+immortal(zeus).
+
+%Rules
+mortal(X) :- man(X), not(immortal(X)). 
+mortal(X) :- woman(X).
+
+married(socrates).
+married(helen).
+
+husband(Person) :- married(Person),
+				   man(Person).
+```
+![](img/2020-05-13-23-33-10.png)
+![](img/2020-05-14-02-13-25.png)
 
 
+
+
+---
 - `X \= jamie` ; != , different than not
 
 ![](img/2020-04-18-14-26-15.png)
