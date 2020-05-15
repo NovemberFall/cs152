@@ -1,4 +1,33 @@
-### Lab17
+### day17 prolog
+
+
+![](img/2020-05-14-16-34-38.png)
+![](img/2020-05-14-16-45-29.png)
+
+
+
+
+## The Cut Operator
+
+### no cuts
+
+![](img/2020-05-14-17-33-53.png)
+
+- why need cuts? since if without cut, it still continue search? 
+![](img/2020-05-14-17-34-56.png)
+
+
+### Green cut
+
+![](img/2020-05-14-17-43-09.png)
+![](img/2020-05-14-18-16-09.png)
+![](img/2020-05-14-18-17-30.png)
+
+- after green cut, you don't need consider the second match.
+
+
+
+
 
 - batman.prolog
 

@@ -7,3 +7,15 @@ combined_heists(X, Y, Total) :-
 		heists(X,XN), heists(Y,YN), 
 		Total is XN + YN.
 		% Total = XN + YN.
+
+
+
+%rules
+
+add_3_and_double(X,Y) :- Y is (X+3)*2.
+
+
+
+%rules - no cuts 
+max(X,Y,Y) :- X =< Y.
+max(X,Y,X) :- X > Y. 
