@@ -109,7 +109,61 @@ combined_heists(X, Y, Total) :-
 ---
 
 
-## List
+## List in Prolog
 ![](img/2020-04-19-22-33-26.png)
 
+### Prolog list solutions are often recursive.
+
+![](img/2020-05-14-18-42-45.png)
+![](img/2020-05-14-18-59-09.png)
+
+- append method.
+
+![](img/2020-05-14-20-00-44.png)
+
+- myappend method:
+
+```ruby
+myappend([], L2, L2).   %base case
+myappend([H|T1], L2, [H|T2]) :- myappend(T1, L2, T2). %Recursive case
+```
+
+- Prefix
+
+![](img/2020-05-14-20-12-30.png)
+
+---
+
+
+## Reversing a List
+
+```ruby
+myreverse([], []).
+myreverse([H|T], L) :- myreverse(T, RT), append(RT, [H], L).
+
+
+
+
+naiverev([],[]).
+naiverev([H|T],R):-  naiverev(T,RevT),  append(RevT,[H],R).
+```
+
+- using Accumulator:
+
+```ruby
+   List:  [a,b,c,d]    Accumulator:  []
+   List:  [b,c,d]        Accumulator:  [a]
+   List:  [c,d]            Accumulator:  [b,a]
+   List:  [d]                Accumulator:  [c,b,a]
+   List:  []                  Accumulator:  [d,c,b,a]
+
+ 
+    accRev([H|T],A,R):-  accRev(T,[H|A],R).
+    accRev([],A,A).
+```
+
+---
+
+
+## Graph
 
