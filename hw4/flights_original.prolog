@@ -56,44 +56,5 @@ flight(ewr, sfo, 16:11, 19:40, 313.40).
 % ArrivalTime: Time arriving at the final destination.
 % Flights: List of the airports to visit, in order.
 % TotalCost: Cost of all flights.
-
-
-
-
-
-
-
-
-%% Base case
 route(Departing, Arriving, Visited, DepartureTime, ArrivalTime, Flights, TotalCost) :-
-  flight(Departing, Arriving, DepartureTime, ArrivalTime, TotalCost),
-  \+ member(Arriving, Visited),
-  Flights = [Departing, Arriving].
-
-%% Route search
-route(Departing, Arriving, Visited, DepartureTime, ArrivalTime, Flights, TotalCost) :-
-  flight(Departing, Transfer, DepartureTime, TransferArrival, InitCost),
-                                                %% Visited list is getting contaminated with lax for some reason
-  \+ member(Transfer, Visited),
-  append(Visited, [Departing, Transfer], V), % Fill up visited with duplicate airports cause why not
-  route(Transfer, Arriving, V, TransferDeparture, ArrivalTime, TailFlights, TailCost), % Rest of the flight path
-  TransferArrival @< TransferDeparture,          % @< is less than
-  Flights = [Departing | TailFlights],
-  TotalCost is InitCost + TailCost.
-
-%% Sanity check
-emptyList(A) :-
-  is_list(A),
-  A = [].
-
-%% Test
-
-% Simple start/end test
-% route(lax, sjc, [], DepartureTime, ArrivalTime, Flights, TotalCost).
-
-% One intermediate jump
-% route(sfo, sjc, [], DepartureTime, ArrivalTime, Flights, TotalCost).
-
-% route(sjc, phl, [], DT, AT, Flights, TotalCost). 
-
-% route(sfo, sjc, [], DT, AT, Flights, TotalCost).
+  fail.
